@@ -1,0 +1,1 @@
+emulator @new_emu &
