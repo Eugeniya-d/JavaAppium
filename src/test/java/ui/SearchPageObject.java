@@ -9,6 +9,7 @@ abstract public class SearchPageObject extends MainPageObject {
     protected static String SEARCH_RESULT_BY_SUBSTRING_TPL;
     protected static String SEARCH_CANCEL_BUTTON;
     protected static String SEARCH_CLEAR_STRING_BUTTON;
+    protected static String FIRST_ELEMENT_IN_LIST_FOR_MW;
     protected static String FIND_TITLE_OF_ARTICLE_TPL;
     protected static String FIND_DESCRIPTION_OF_ARTICLE_TPL;
 
@@ -81,8 +82,8 @@ abstract public class SearchPageObject extends MainPageObject {
     }
 
     public void goToTitle(String articleTitle) throws IllegalAccessException {
-        String getArticleTitle = getArticleTitle(articleTitle);
-        this.waitForElementAndClick(getArticleTitle,
+        String getSearchElement = getSearchElement(articleTitle);
+        this.waitForElementAndClick(getSearchElement,
                 "Cannot find title with name " + articleTitle,
                 10);
     }
@@ -105,5 +106,11 @@ abstract public class SearchPageObject extends MainPageObject {
                 15);
     }
 
+    public void clickByArticleWithSubstringForMW() throws IllegalAccessException {
+        String search_result_xpath = FIRST_ELEMENT_IN_LIST_FOR_MW;
+        this.waitForElementAndClick((search_result_xpath),
+                "Cannot find and click search result with substring " + search_result_xpath,
+                10);
+    }
 }
 

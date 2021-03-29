@@ -3,19 +3,18 @@ package tests;
 import lib.CoreTestCase;
 import lib.Platform;
 import org.junit.Test;
-import ui.ArticlePageObject;
-import ui.MyListsPageObject;
-import ui.NavigationUIPageObject;
-import ui.SearchPageObject;
+import ui.*;
 import ui.factories.ArticlePageObjectFactory;
 import ui.factories.MyListPageObjectFactory;
 import ui.factories.NavigationUIPageObjectFactory;
 import ui.factories.SearchPageObjectFactory;
-
+import ui.AuthorizationPageObject;
 
 public class MyListsTests extends CoreTestCase {
 
-private static final String folderName = "My folder";
+    private static final String folderName = "My folder";
+    private static final String login = "EugeniyaD";
+    private static final String password = "utkaUtka41684";
 
     @Test
     public void testSaveAndDeleteArticleToReadindList() throws IllegalAccessException {
@@ -27,23 +26,36 @@ private static final String folderName = "My folder";
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        String firstArticleTitleOnSearch = "Island of Indonesia";
+        String firstArticleTitleOnSearch = "Indonesian island";
         SearchPageObject.goToTitle(firstArticleTitleOnSearch);
         ArticlePageObject.addArticleToFavoriteList();
-        ArticlePageObject.confirmArticleSelection();
+        if (Platform.getInstance().isMW()) {
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+            MyListsPageObject.waitForTitle(firstArticleTitleOnSearch);
+            ArticlePageObject.addArticleToFavoriteList();
+        }
+
         if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.confirmArticleSelection();
             ArticlePageObject.clearDefaultNameOfFolder();
             ArticlePageObject.giveArticleNewName(folderName);
             ArticlePageObject.confirmArticleAddiction();
+            NavigationUIPageObject.exitFromArticlePage();
         }
-        NavigationUIPageObject.exitFromArticlePage();
         SearchPageObject.initSearchInput();
-        if (Platform.getInstance().isAndroid()) {
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()) {
             SearchPageObject.typeSearchLine("Java");
         }
         String secondArticleTitleOnSearch = "Object-oriented programming language";
         SearchPageObject.goToTitle(secondArticleTitleOnSearch);
         ArticlePageObject.addArticleToFavoriteList();
+        NavigationUIPageObject.openNavigation();
+        NavigationUIPageObject.clickMyLists();
+        MyListsPageObject.swipeByArticleToDeleteForMW();
+
         if (Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToExistingFolder(folderName);
         }
@@ -52,14 +64,25 @@ private static final String folderName = "My folder";
         if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.goToSelectedFolder();
             String firstArticleTitle = "object-oriented programming language";
-            String secondArticleTitle = "island of Indonesia";
+            String secondArticleTitle = "Indonesian island";
             MyListsPageObject.deleteArticle(firstArticleTitle);
             MyListsPageObject.waitForTitle(secondArticleTitle);
             MyListsPageObject.waitNotForTitle(firstArticleTitle);
+        } else if (Platform.getInstance().isIOS()) {
+            MyListsPageObject.swipeToDeleteArticleForIOS();
+            MyListsPageObject.waitNotForTypeImage();
+        } else {
+            SearchPageObject.clickByArticleWithSubstringForMW();
+            ArticlePageObject.waitForTitleElement();
+            String first_element_in_list = ArticlePageObject.getArticleTitle();
+            assertEquals(
+                    "Cannot presented this element",
+                    secondArticleTitleOnSearch,
+                    first_element_in_list
+            );
         }
-        MyListsPageObject.swipeToDeleteArticleForIOS();
-        MyListsPageObject.waitNotForTypeImage();
-        }
+    }
+
 
     @Test
     public void testTitleAndDescriptionSearch() throws Exception {
@@ -82,5 +105,5 @@ private static final String folderName = "My folder";
         String description3 = "Neighborhood of Queens, New York City";
         SearchPageObject.waitForElementByTitleAndDescription(title3, description3);
     }
-    }
+}
 

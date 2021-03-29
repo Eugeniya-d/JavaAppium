@@ -42,6 +42,24 @@ public class MainPageObject {
             throw new Exception(errorTextMessage);
     }
 
+    public void tryClickElementsWithFewAttempts(String locator, String errorMessage ,int amountOfAttempts) throws IllegalAccessException {
+        int currentAttempts = 0;
+        boolean needMoreAttempts = true;
+
+        while (needMoreAttempts)
+        {
+            try{
+                this.waitForElementAndClick(locator, errorMessage, 1);
+                needMoreAttempts = false;
+            } catch (Exception e){
+                if (currentAttempts > amountOfAttempts){
+                    this.waitForElementAndClick(locator, errorMessage, 1);
+                }
+            }
+            ++ currentAttempts;
+        }
+    }
+
     public boolean assertElementContainsText(String locator, String expectedText, String errorTextMessage) throws Exception {
         By by = this.getLocatorByString(locator);
         WebElement element = waitForElementPresent(locator, errorTextMessage, 5);
@@ -72,6 +90,10 @@ public class MainPageObject {
         WebElement element = waitForElementPresent(locator, errorTextMessage, timeoutInSeconds);
         element.click();
         return element;
+    }
+
+    public boolean isElementPresent(String locator) throws IllegalAccessException {
+        return getAmountOfElements(locator)>0;
     }
 
     public WebElement waitForElementAndSendKeys(String locator, String errorTextMessage, long timeoutInSeconds, String value) throws IllegalAccessException {

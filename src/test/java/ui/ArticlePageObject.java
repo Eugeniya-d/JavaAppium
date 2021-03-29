@@ -1,5 +1,7 @@
 package ui;
 
+import lib.Platform;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
@@ -9,6 +11,8 @@ abstract public class ArticlePageObject extends MainPageObject {
     protected static String STRING_NAME_OF_FOLDER;
     protected static String CONFIRM_ARTICLE_ADDICTION;
     protected static String ADD_ARTICLE_TO_EXISTING_FOLDER_TPL;
+    protected static String OPTIONS_REMOVE_FROM_MY_LIST_BUTTON;
+    protected static String TITLE_ELEMENT;
 
     public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
@@ -23,7 +27,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     public void addArticleToFavoriteList() throws IllegalAccessException {
         this.waitForElementAndClick(ARTICLE_TO_FAVORITE_LIST_BUTTON,
                 "Cannot find 'Add this article to favorites' button",
-                15);
+                5);
     }
 
     public void confirmArticleSelection() throws IllegalAccessException {
@@ -37,6 +41,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 "Cannot clear default folder name",
                 15);
     }
+
 
     public void giveArticleNewName(String name) throws IllegalAccessException {
         this.waitForElementAndSendKeys(STRING_NAME_OF_FOLDER,
@@ -52,9 +57,38 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
 
     public void addArticleToExistingFolder(String folderName) throws IllegalAccessException {
+        if (Platform.getInstance().isMW()) {
+            removeArticleFromSavedIfItAdded();
+        }
         String getFolderName = getFolderName(folderName);
         this.waitForElementAndClick(getFolderName,
                 "Cannot find folder with name " + folderName,
                 5);
+    }
+
+    public void removeArticleFromSavedIfItAdded() throws IllegalAccessException {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+            this.waitForElementAndClick(
+                    OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Cannot click button to remove an article from saved",
+                    1
+            );
+            this.waitForElementPresent(
+                    ARTICLE_TO_FAVORITE_LIST_BUTTON,
+                    "Cannot find button to add an article to saved list after removing it from this list before",
+                    5
+            );
+        }
+    }
+
+    public WebElement waitForTitleElement() throws IllegalAccessException {
+        return this.waitForElementPresent(TITLE_ELEMENT,
+                "Cannot find this article title",
+                15);
+    }
+
+    public String getArticleTitle() throws IllegalAccessException {
+        WebElement title_element = waitForTitleElement();
+        return title_element.getText();
     }
 }
