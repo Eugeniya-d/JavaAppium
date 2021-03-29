@@ -1,9 +1,9 @@
 package ui;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class NavigationUIPageObject extends MainPageObject{
-    public NavigationUIPageObject(AppiumDriver driver) {
+    public NavigationUIPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 

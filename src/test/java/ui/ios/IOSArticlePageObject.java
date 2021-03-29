@@ -1,6 +1,6 @@
 package ui.ios;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.ArticlePageObject;
 
 
@@ -14,7 +14,7 @@ public class IOSArticlePageObject extends ArticlePageObject {
         ADD_ARTICLE_TO_EXISTING_FOLDER_TPL = "xpath://*[contains(@text, '{NAME_OF_FOLDER}')]";
     }
 
-    public IOSArticlePageObject(AppiumDriver driver) {
+    public IOSArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

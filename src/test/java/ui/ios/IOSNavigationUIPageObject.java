@@ -1,6 +1,6 @@
 package ui.ios;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.NavigationUIPageObject;
 
 public class IOSNavigationUIPageObject extends NavigationUIPageObject {
@@ -9,7 +9,7 @@ public class IOSNavigationUIPageObject extends NavigationUIPageObject {
      GO_TO_SAVED_FOLDERS_NAVIGATE_BUTTON = "xpath://XCUIElementTypeButton[@name='Saved']";
  }
 
-    public IOSNavigationUIPageObject(AppiumDriver driver) {
+    public IOSNavigationUIPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

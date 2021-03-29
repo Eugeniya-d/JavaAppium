@@ -1,6 +1,6 @@
 package ui.android;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.ArticlePageObject;
 
 public class AndroidArticlePageObject extends ArticlePageObject{
@@ -11,7 +11,7 @@ public class AndroidArticlePageObject extends ArticlePageObject{
         CONFIRM_ARTICLE_ADDICTION = "xpath://*[contains(@text, 'OK')]";
         ADD_ARTICLE_TO_EXISTING_FOLDER_TPL = "xpath://*[contains(@text, '{NAME_OF_FOLDER}')]";
     }
-    public AndroidArticlePageObject(AppiumDriver driver) {
+    public AndroidArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

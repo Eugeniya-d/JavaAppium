@@ -1,19 +1,27 @@
 package tests;
 
 import lib.CoreTestCase;
+import lib.Platform;
 import org.junit.Test;
+import ui.ArticlePageObject;
+import ui.MyListsPageObject;
+import ui.NavigationUIPageObject;
 import ui.SearchPageObject;
+import ui.factories.ArticlePageObjectFactory;
+import ui.factories.MyListPageObjectFactory;
+import ui.factories.NavigationUIPageObjectFactory;
 import ui.factories.SearchPageObjectFactory;
 
 
 public class MyListsTests extends CoreTestCase {
-/*
+
 private static final String folderName = "My folder";
 
     @Test
     public void testSaveAndDeleteArticleToReadindList() throws IllegalAccessException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-        ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
+        ArticlePageObject ArticlePageObject;
+        ArticlePageObject = ArticlePageObjectFactory.get(driver);
         NavigationUIPageObject NavigationUIPageObject = NavigationUIPageObjectFactory.get(driver);
         MyListsPageObject MyListsPageObject = MyListPageObjectFactory.get(driver);
 
@@ -52,7 +60,7 @@ private static final String folderName = "My folder";
         MyListsPageObject.swipeToDeleteArticleForIOS();
         MyListsPageObject.waitNotForTypeImage();
         }
-*/
+
     @Test
     public void testTitleAndDescriptionSearch() throws Exception {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -70,8 +78,8 @@ private static final String folderName = "My folder";
         String description2 = "Island sovereign state in the Caribbean Sea";
         SearchPageObject.waitForElementByTitleAndDescription(title2, description2);
 
-        String title3 = "Jamaica national football team";
-        String description3 = "Men's national association football team representing Jamaica";
+        String title3 = "Jamaica, Queens";
+        String description3 = "Neighborhood of Queens, New York City";
         SearchPageObject.waitForElementByTitleAndDescription(title3, description3);
     }
     }

@@ -1,6 +1,6 @@
 package ui.ios;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.SearchPageObject;
 
 public class IOSSearchPageObject extends SearchPageObject {
@@ -14,7 +14,7 @@ public class IOSSearchPageObject extends SearchPageObject {
         FIND_DESCRIPTION_OF_ARTICLE_TPL = "xpath://XCUIElementTypeStaticText[contains(@name,'{ARTICLE_DESCRIPTION}')]";
     }
 
-    public IOSSearchPageObject(AppiumDriver driver) {
+    public IOSSearchPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

@@ -1,4 +1,5 @@
 package tests;
+import io.appium.java_client.AppiumDriver;
 import lib.CoreTestCase;
 import lib.Platform;
 import org.junit.Test;
@@ -9,10 +10,9 @@ public class GetStartedTest extends CoreTestCase {
     @Test
     public void testPassThroughWelcome() throws IllegalAccessException {
 
-        if (Platform.getInstance().isAndroid()){
-            return;
-        }
-        WelcomePageObject WelcomePage = new WelcomePageObject(driver);
+        if (Platform.getInstance().isIOS()){
+
+        WelcomePageObject WelcomePage = new WelcomePageObject((AppiumDriver) driver);
 
         WelcomePage.waitForLearnMoreLink();
         WelcomePage.waitAndClickNextButton();
@@ -23,5 +23,8 @@ public class GetStartedTest extends CoreTestCase {
         WelcomePage.waitForLearnMoreAboutDataCollected();
         WelcomePage.waitAndClickForGetStarted();
 
+    } else {
+        return;
+        }
     }
 }

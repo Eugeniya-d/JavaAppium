@@ -14,7 +14,7 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.initSearchInput();
     }
 
-    @Test
+   @Test
     public void testCancelSearch() throws IllegalAccessException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -37,7 +37,7 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.goToTitle(articleTitleOnSearch);
     }
 
-    @Test
+ @Test
     public void testTitleAndDescriptionSearch() throws Exception {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 

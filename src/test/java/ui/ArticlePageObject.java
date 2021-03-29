@@ -1,6 +1,6 @@
 package ui;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 
 abstract public class ArticlePageObject extends MainPageObject {
@@ -10,7 +10,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     protected static String CONFIRM_ARTICLE_ADDICTION;
     protected static String ADD_ARTICLE_TO_EXISTING_FOLDER_TPL;
 
-    public ArticlePageObject(AppiumDriver driver) {
+    public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
 

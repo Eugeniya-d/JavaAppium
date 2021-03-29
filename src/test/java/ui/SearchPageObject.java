@@ -1,7 +1,6 @@
 package ui;
 
-import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class SearchPageObject extends MainPageObject {
 
@@ -14,7 +13,7 @@ abstract public class SearchPageObject extends MainPageObject {
     protected static String FIND_DESCRIPTION_OF_ARTICLE_TPL;
 
 
-    public SearchPageObject(AppiumDriver driver) {
+    public SearchPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 
@@ -92,7 +91,7 @@ abstract public class SearchPageObject extends MainPageObject {
         String getArticleTitle = getArticleTitle(articleTitle);
         this.waitForElementPresent(getArticleTitle,
                 "Article " + articleTitle + " not presented",
-                0);
+                10);
     }
 
     public void waitForElementByTitleAndDescription(String title, String description) throws IllegalAccessException {

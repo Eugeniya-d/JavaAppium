@@ -2,8 +2,10 @@ package ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -11,9 +13,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class MainPageObject {
-    protected AppiumDriver driver;
+    protected RemoteWebDriver driver;
 
-    public MainPageObject(AppiumDriver driver) {
+    public MainPageObject(RemoteWebDriver driver) {
         this.driver = driver;
     }
 
@@ -85,6 +87,7 @@ public class MainPageObject {
     }
 
     public void swipeElementToLeft(String locator,String errorTextMessage) throws IllegalAccessException {
+        if (driver instanceof AppiumDriver){
         WebElement element =  waitForElementPresent(
                 locator,
                 errorTextMessage,
@@ -96,14 +99,18 @@ public class MainPageObject {
         int middleY = (upperY + lowerY)/ 2;
         int offsetX = (-1 * element.getSize().getWidth());
 
-        TouchAction action = new TouchAction(driver);
+        TouchAction action = new TouchAction((AppiumDriver) driver);
                 action.press(rightX, middleY);
                 action.waitAction(300)
                 .moveTo(offsetX, 0).
                 release().perform();
+        }else {
+            System.out.println("Method swipeElementToLeft() do nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
     }
 
     public void clickElementToTheRightUpperCorner(String locator, String error_message) throws IllegalAccessException {
+        if (driver instanceof AppiumDriver){
             WebElement element = this.waitForElementPresent(locator + "/..",
                     error_message,
                     10);
@@ -116,9 +123,12 @@ public class MainPageObject {
             int pointToClickX = (rightX + width) - 3;
             int pointToClickY = middleY;
 
-            TouchAction action = new TouchAction(driver);
+            TouchAction action = new TouchAction((AppiumDriver)driver);
             action.tap(pointToClickX, pointToClickY).perform();
+        } else {
+            System.out.println("Method clickElementToTheRightUpperCorner() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }
+    }
 
     private By getLocatorByString(String locatorWithType) throws IllegalAccessException {
 
@@ -130,10 +140,10 @@ public class MainPageObject {
             return By.xpath(locator);
         } else if (byType.equals("id")) {
             return By.id(locator);
-        } else {
+        }  else if (byType.equals("css")) {
+            return By.cssSelector(locator);
+        }else {
             throw new IllegalAccessException("Cannot det type of locator. Locator :"+ locatorWithType);
         }
     }
-
-
 }

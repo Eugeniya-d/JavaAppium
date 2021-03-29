@@ -1,6 +1,6 @@
 package ui.android;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.SearchPageObject;
 
 public class AndroidSearchPageObject extends SearchPageObject {
@@ -14,7 +14,7 @@ public class AndroidSearchPageObject extends SearchPageObject {
     FIND_DESCRIPTION_OF_ARTICLE_TPL = "xpath://*[contains(@text, '{ARTICLE_DESCRIPTION}')]";
     }
 
-    public AndroidSearchPageObject(AppiumDriver driver) {
+    public AndroidSearchPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }

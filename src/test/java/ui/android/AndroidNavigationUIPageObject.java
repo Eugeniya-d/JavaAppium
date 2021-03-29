@@ -1,6 +1,6 @@
 package ui.android;
 
-import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.NavigationUIPageObject;
 
 public class AndroidNavigationUIPageObject extends NavigationUIPageObject {
@@ -9,7 +9,7 @@ public class AndroidNavigationUIPageObject extends NavigationUIPageObject {
     GO_TO_SAVED_FOLDERS_NAVIGATE_BUTTON = "xpath://ui.android.widget.FrameLayout[@content-desc='My lists']";
     }
 
-    public AndroidNavigationUIPageObject(AppiumDriver driver) {
+    public AndroidNavigationUIPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 }
