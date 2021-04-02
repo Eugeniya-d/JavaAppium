@@ -1,4 +1,17 @@
 -------------------------------------------------------------------------------
 Test set: tests.MyListsTests
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 80.596 s - in tests.MyListsTests
+Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 125.737 s <<< FAILURE! - in tests.MyListsTests
+testPassThroughWelcome(tests.MyListsTests)  Time elapsed: 35.514 s  <<< ERROR!
+org.openqa.selenium.TimeoutException: 
+Expected condition failed: Cannot find 'New ways to explore' link
+ (tried for 10 second(s) with 500 milliseconds interval)
+	at tests.MyListsTests.testPassThroughWelcome(MyListsTests.java:83)
+Caused by: org.openqa.selenium.NoSuchElementException: 
+Cannot locate an element using By.id: New ways to explore
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.12.0', revision: '7c6e0b3', time: '2018-05-08T14:04:26.12Z'
+System info: host: 'CAB-WSM-0003576', ip: 'fe80:0:0:0:801:f6cd:84c5:670d%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.15.7', java.version: '1.8.0_201'
+Driver info: driver.version: unknown
+	at tests.MyListsTests.testPassThroughWelcome(MyListsTests.java:83)
+

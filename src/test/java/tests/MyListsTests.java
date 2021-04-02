@@ -1,17 +1,18 @@
 package tests;
 
+import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import org.junit.Test;
-import ui.ArticlePageObject;
-import ui.MyListsPageObject;
-import ui.NavigationUIPageObject;
-import ui.SearchPageObject;
+import ui.*;
 import ui.factories.ArticlePageObjectFactory;
 import ui.factories.MyListPageObjectFactory;
 import ui.factories.NavigationUIPageObjectFactory;
 import ui.factories.SearchPageObjectFactory;
 
+@Epic("Тесты для списков")
 public class MyListsTests extends CoreTestCase {
 
     private static final String folderName = "My folder";
@@ -19,7 +20,11 @@ public class MyListsTests extends CoreTestCase {
     private static final String password = "utkaUtka41684";
 
     @Test
-   
+    @Features(value={@Feature(value = "Search"), @Feature(value = "Article"),@Feature(value = "Navigation")})
+    @DisplayName("Сохранение двух статей и удаление одной из списка")
+    @Description("Добавление статей Ява-Индонезия и Джава- язык программирования с последующим удалением второй статьи")
+    @Step("Начало теста testSaveAndDeleteArticleToReadindList")
+    @Severity(SeverityLevel.BLOCKER)
     public void testSaveAndDeleteArticleToReadindList() throws IllegalAccessException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
@@ -62,9 +67,37 @@ public class MyListsTests extends CoreTestCase {
         MyListsPageObject.waitNotForTypeImage();
     }
 
+    @Test
+    @DisplayName("Проверка страниц входа")
+    @Description("Welcome-стрвницы приложения Wikipedia для IOs")
+    @Step("Начало теста testPassThroughWelcome")
+    @Severity(SeverityLevel.NORMAL)
+    public void testPassThroughWelcome() throws IllegalAccessException {
+
+        if (Platform.getInstance().isIOS()){
+
+            WelcomePageObject WelcomePage = new WelcomePageObject((AppiumDriver) driver);
+
+            WelcomePage.waitForLearnMoreLink();
+            WelcomePage.waitAndClickNextButton();
+            WelcomePage.waitForNewWaysToExplore();
+            WelcomePage.waitAndClickNextButton();
+            WelcomePage.waitForSearchInNearly300Languagese();
+            WelcomePage.waitAndClickNextButton();
+            WelcomePage.waitForLearnMoreAboutDataCollected();
+            WelcomePage.waitAndClickForGetStarted();
+
+        } else {
+            return;
+        }
+    }
 
     @Test
-
+    @Features(value={@Feature(value = "Search")})
+    @DisplayName("Проверка трех заголовков и описаний в выдаче поиска")
+    @Description("Проверка соответствия строки поиска и заговков/описаний")
+    @Step("Начало теста testTitleAndDescriptionSearch")
+    @Severity(SeverityLevel.MINOR)
     public void testTitleAndDescriptionSearch() throws Exception {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -83,6 +116,7 @@ public class MyListsTests extends CoreTestCase {
 
         String title3 = "Jamaica, Queens";
         String description3 = "Neighborhood of Queens, New York City";
+       // SearchPageObject.takeScreenshot("article_page");
         SearchPageObject.waitForElementByTitleAndDescription(title3, description3);
     }
 }

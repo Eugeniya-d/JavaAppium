@@ -1,5 +1,6 @@
 package ui;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class SearchPageObject extends MainPageObject {
@@ -33,7 +34,7 @@ abstract public class SearchPageObject extends MainPageObject {
 
     /* TEMPLATES METHODS */
 
-
+    @Step("Нажатие на поиск")
     public void initSearchInput() throws IllegalAccessException {
         this.waitForElementAndClick(SEARCH_INIT_ELEMENT,
                 "Cannot find element with text 'Search Wikipedia'",
@@ -42,7 +43,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot search the element input after click",
                 5);
     }
-
+    @Step("Ввод в строку поиска")
     public void typeSearchLine(String searchLine) throws IllegalAccessException {
         this.waitForElementAndSendKeys(SEARCH_INPUT,
                 "Cannot find search input",
@@ -62,7 +63,7 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Cannot find search field",
                 5);
     }
-
+    @Step("Очистка строки поиска")
     public void clearStringSearch() throws IllegalAccessException {
         this.waitForElementAndClear(SEARCH_CLEAR_STRING_BUTTON,
                 "Cannot find search field",
@@ -74,30 +75,31 @@ abstract public class SearchPageObject extends MainPageObject {
                 "Search cancel button is stiil present",
                 5);
     }
-
+    @Step("Нажатие на кнопку закрыть")
     public void clickCancelSearch() throws IllegalAccessException {
         this.waitForElementAndClear(SEARCH_CANCEL_BUTTON,
                 "Cannot find search and click cancel button",
                 5);
     }
-
+    @Step("Нажатие на заголовок статьи")
     public void goToTitle(String articleTitle) throws IllegalAccessException {
         String getSearchElement = getSearchElement(articleTitle);
         this.waitForElementAndClick(getSearchElement,
                 "Cannot find title with name " + articleTitle,
                 10);
     }
-
+    @Step("Ожидание заголовка '{articleTitle}'")
     public void waitForTitlePresent(String articleTitle) throws IllegalAccessException {
         String getArticleTitle = getArticleTitle(articleTitle);
         this.waitForElementPresent(getArticleTitle,
                 "Article " + articleTitle + " not presented",
                 10);
     }
-
+    @Step("Ожидание заголовка '{title}' и описания статьи '{description}'")
     public void waitForElementByTitleAndDescription(String title, String description) throws IllegalAccessException {
         String getArticleTitle = getArticleTitle(title);
         String getArticleDescription = getArticleDescription(description);
+        screensshot(this.takeScreenshot("article_title"));
         this.waitForElementPresent(getArticleTitle,
                 "Article with title " + title + " and description " + description + " not presented",
                 15);
