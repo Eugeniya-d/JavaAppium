@@ -1,6 +1,5 @@
 package tests;
 
-import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class MyListsTests extends CoreTestCase {
     private static final String password = "utkaUtka41684";
 
     @Test
-    @DisplayName("Сохранение двух статей и удаление одной из списка")
+   
     public void testSaveAndDeleteArticleToReadindList() throws IllegalAccessException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
