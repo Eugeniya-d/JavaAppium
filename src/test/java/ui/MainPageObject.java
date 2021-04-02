@@ -2,6 +2,8 @@ package ui;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,6 +11,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -122,10 +125,11 @@ public class MainPageObject {
         int offsetX = (-1 * element.getSize().getWidth());
 
         TouchAction action = new TouchAction((AppiumDriver) driver);
-                action.press(rightX, middleY);
-                action.waitAction(300)
-                .moveTo(offsetX, 0).
-                release().perform();
+            TouchAction press = action.press(PointOption.point(rightX, middleY));
+            press.
+                    waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
+                    .moveTo(PointOption.point(offsetX, 0)).
+                    release().perform();
         }else {
             System.out.println("Method swipeElementToLeft() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }
@@ -146,7 +150,7 @@ public class MainPageObject {
             int pointToClickY = middleY;
 
             TouchAction action = new TouchAction((AppiumDriver)driver);
-            action.tap(pointToClickX, pointToClickY).perform();
+            action.tap(PointOption.point(pointToClickX, pointToClickY)).perform();
         } else {
             System.out.println("Method clickElementToTheRightUpperCorner() do nothing for platform " + Platform.getInstance().getPlatformVar());
         }

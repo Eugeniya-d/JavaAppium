@@ -1,28 +1,27 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import ui.WelcomePageObject;
 
-public class CoreTestCase extends TestCase {
+public class CoreTestCase {
 
     protected RemoteWebDriver driver;
 
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         driver = Platform.getInstance().getDriver();
         this.skipWelcomePageForIOSApp();
         this.openWikiwebPageForMW();
     }
 
 
-    @Override
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown(){
         driver.quit();
-        super.tearDown();
     }
 
     protected void openWikiwebPageForMW(){
